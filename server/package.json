@@ -2,12 +2,12 @@
   "name": "mern_chat",
   "version": "1.0.0",
   "description": "Server for MernChat application",
-  "main": "main.js",
+  "main": "server.js",
   "repository": "https://github.com/PrinceNarteh/mern-chat/server",
   "author": "Prince Narteh",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --exit-child --transpile-only src/main.ts"
+    "dev": "ts-node-dev --exit-child --transpile-only src/server.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
