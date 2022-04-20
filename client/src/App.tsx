@@ -1,9 +1,10 @@
 import React from "react";
+import Router from "./Router";
 
 function App() {
   return (
     <div className="">
-      <h1>Chart App</h1>
+      <Router />
     </div>
   );
 }
