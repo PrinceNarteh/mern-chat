@@ -9,4 +9,5 @@ export const corsOptions: CorsOptions = {
       callback(new Error("Origin not allowed"));
     }
   },
+  methods: ["GET", "POST"],
 };
