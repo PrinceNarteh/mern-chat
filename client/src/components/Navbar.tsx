@@ -7,7 +7,7 @@ const Navbar = () => {
     <div className="shadow-md">
       <nav className="h-14 flex items-center justify-between max-w-6xl mx-auto px-5">
         <h2 className="flex gap-2 items-center">
-          <ChatAlt2Icon className="h-5 w-5 text-teal-500" />
+          <ChatAlt2Icon className="h-5 w-5 text-[#48A3D8]" />
           <span>MernChat</span>
         </h2>
         <ul className="flex gap-5">
