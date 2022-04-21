@@ -4,8 +4,10 @@ import useForm from "../hooks/useForm";
 import Avatar from "../assets/avatar.png";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { uploadImage } from "../services/uploadImage";
+import { useSwal } from "../hooks/useSwal";
 
 const Register = () => {
+  const swal = useSwal();
   const { values, onChange, onSubmit } = useForm(
     { email: "", password: "" },
     loginUser
@@ -19,18 +21,20 @@ const Register = () => {
   function validateImg(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files;
     if (file && file[0].size >= 1048576) {
-      return alert("Max image size is 1mb");
+      swal.fire({ icon: "error", title: "Max image size is 1mb" });
+      return;
     } else if (file) {
       setImage(file[0]);
       setImagePreview(URL.createObjectURL(file[0]));
     }
   }
 
-  function loginUser() {
+  async function loginUser() {
     if (!image) {
       return alert("Please upload your profile picture");
     }
-    uploadImage(image, setUploadImg);
+    const url = await uploadImage(image, setUploadImg);
+    console.log(url);
   }
 
   return (

@@ -4,11 +4,11 @@ export const uploadImage = async (
 ) => {
   const data = new FormData();
   data.append("file", image);
-  data.append("upload_preset", "123456 ");
+  data.append("upload_preset", "mern-chat");
   try {
     setUploadingImg(true);
     let res = await fetch(
-      `https://api.cloudinary.com/v1_1/${username}/upload`,
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_USERNAME}/upload`,
       {
         method: "POST",
         body: data,
