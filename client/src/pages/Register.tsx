@@ -3,6 +3,7 @@ import RegisterBg from "../assets/signup.jpg";
 import useForm from "../hooks/useForm";
 import Avatar from "../assets/avatar.png";
 import { PlusCircleIcon } from "@heroicons/react/solid";
+import { uploadImage } from "../services/uploadImage";
 
 const Register = () => {
   const { values, onChange, onSubmit } = useForm(
@@ -29,6 +30,7 @@ const Register = () => {
     if (!image) {
       return alert("Please upload your profile picture");
     }
+    uploadImage(image, setUploadImg);
   }
 
   return (
