@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { ChatAlt2Icon } from "@heroicons/react/outline";
 
 const Navbar = () => {
@@ -12,16 +12,16 @@ const Navbar = () => {
         </h2>
         <ul className="flex gap-5">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <Link to="/chat">Chat</Link>
+            <NavLink to="/chat">Chat</NavLink>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <NavLink to="/login">Login</NavLink>
           </li>
           <li>
-            <Link to="/register">Register</Link>
+            <NavLink to="/register">Register</NavLink>
           </li>
         </ul>
       </nav>

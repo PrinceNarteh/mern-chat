@@ -3,7 +3,7 @@ import Router from "./Router";
 
 function App() {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="min-h-screen overflow-hidden">
       <Router />
     </div>
   );
