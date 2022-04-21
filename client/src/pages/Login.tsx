@@ -3,7 +3,7 @@ import LoginBg from "../assets/login.jpg";
 import useForm from "../hooks/useForm";
 
 const Login = () => {
-  const { values, onChange, onSubmit } = useForm(
+  const { values, onChangeHandler, onSubmitHandler } = useForm(
     { email: "", password: "" },
     loginUser
   );
@@ -19,7 +19,7 @@ const Login = () => {
       </div>
       <div className="h-[calc(100vh_-_3.5rem)] flex flex-col flex-1 justify-center items-center max-w-full ">
         <h1 className="text-4xl text-[#48A3D8] mb-5">Login</h1>
-        <form className="w-1/2" onSubmit={onSubmit}>
+        <form className="w-1/2" onSubmit={onSubmitHandler}>
           <div>
             <label
               htmlFor="email"
@@ -31,7 +31,8 @@ const Login = () => {
               type="email"
               name="email"
               className="border-2 border-[#b8e6f5] rounded-sm mt-2 w-full py-1 px-2 outline-none"
-              onChange={onChange}
+              onChange={onChangeHandler}
+              required
             />
           </div>
           <div className="mt-3">
@@ -45,7 +46,8 @@ const Login = () => {
               type="password"
               name="password"
               className="border-2 border-[#b8e6f5] rounded-sm mt-2 w-full py-1 px-2 outline-none"
-              onChange={onChange}
+              onChange={onChangeHandler}
+              required
             />
           </div>
           <label htmlFor="checkbox" className="block mt-3 text-gray-500">

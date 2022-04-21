@@ -7,19 +7,19 @@ interface IState {
 const useForm = (initialState: IState, callback: () => void) => {
   const [values, setValues] = useState<IState>(initialState);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     callback();
   };
 
   return {
     values,
-    onChange,
-    onSubmit,
+    onChangeHandler,
+    onSubmitHandler,
   };
 };
 

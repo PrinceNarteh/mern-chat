@@ -8,14 +8,14 @@ import { useSwal } from "../hooks/useSwal";
 
 const Register = () => {
   const swal = useSwal();
-  const { values, onChange, onSubmit } = useForm(
+  const { values, onChangeHandler, onSubmitHandler } = useForm(
     { email: "", password: "" },
     loginUser
   );
 
   // Image upload states
   const [image, setImage] = useState<File | null>(null);
-  const [uploadImg, setUploadImg] = useState(false);
+  const [uploadingImg, setUploadingImg] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   function validateImg(e: ChangeEvent<HTMLInputElement>) {
@@ -33,7 +33,7 @@ const Register = () => {
     if (!image) {
       return alert("Please upload your profile picture");
     }
-    const url = await uploadImage(image, setUploadImg);
+    const url = await uploadImage(image, setUploadingImg);
     console.log(url);
   }
 
@@ -41,7 +41,7 @@ const Register = () => {
     <div className="flex flex-col md:flex-row">
       <div className="h-[calc(100vh_-_3.5rem)] flex flex-col flex-1 justify-center items-center max-w-full ">
         <h1 className="text-4xl text-[#48A3D8] mb-5">Register</h1>
-        <form className="w-1/2" onSubmit={onSubmit}>
+        <form className="w-1/2" onSubmit={onSubmitHandler}>
           <div className="relative w-fit mx-auto rounded-full">
             <img
               src={imagePreview || Avatar}
@@ -73,7 +73,7 @@ const Register = () => {
               type="text"
               name="name"
               className="border-2 border-[#b8e6f5] rounded-sm mt-2 w-full py-1 px-2 outline-none"
-              onChange={onChange}
+              onChange={onChangeHandler}
             />
           </div>
           <div className="mt-3">
@@ -87,7 +87,7 @@ const Register = () => {
               type="email"
               name="email"
               className="border-2 border-[#b8e6f5] rounded-sm mt-2 w-full py-1 px-2 outline-none"
-              onChange={onChange}
+              onChange={onChangeHandler}
             />
           </div>
           <div className="mt-3">
@@ -101,14 +101,14 @@ const Register = () => {
               type="password"
               name="password"
               className="border-2 border-[#b8e6f5] rounded-sm mt-2 w-full py-1 px-2 outline-none"
-              onChange={onChange}
+              onChange={onChangeHandler}
             />
           </div>
           <button
             type="submit"
             className="block bg-[#48A3D8] text-white mt-5 px-5 py-1"
           >
-            Login
+            {uploadingImg ? "Signing you up..." : "Sign Up"}
           </button>
         </form>
       </div>
