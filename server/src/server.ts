@@ -2,7 +2,7 @@ import { config } from "dotenv";
 import { createServer } from "http";
 
 import appServer from "./app";
-import { socketServer } from "./socket";
+import { socketServer } from "./sockets/socket";
 import { dbConnection } from "./utils/dbConnection";
 import { logger } from "./utils/logger";
 

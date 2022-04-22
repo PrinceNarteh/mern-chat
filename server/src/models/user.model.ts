@@ -18,6 +18,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Can't be blank"],
+      minlength: 6,
     },
     profilePic: {
       type: String,
