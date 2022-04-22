@@ -4,7 +4,7 @@ import SideBar from "../components/SideBar";
 
 const Chat = () => {
   return (
-    <div className="flex h-[calc(100vh_-_3.5rem)]">
+    <div className="flex h-[calc(100vh_-_3.5rem)] max-w-7xl mx-auto">
       <div className="w-4/12">
         <SideBar />
       </div>

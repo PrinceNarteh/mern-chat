@@ -1,8 +1,25 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document, Model } from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 
-const userSchema = new Schema(
+export interface IUser {
+  name: string;
+  email: string;
+  password: string;
+  picture: string;
+  newMessages: object;
+  status: "online" | "offline";
+}
+
+interface IUserDocument extends IUser, Document {}
+interface UserModel extends Model<IUserDocument> {
+  findByCredentials: (
+    email: string,
+    password: string
+  ) => Promise<IUserDocument>;
+}
+
+const userSchema: Schema<IUserDocument> = new Schema(
   {
     name: {
       type: String,
@@ -20,7 +37,7 @@ const userSchema = new Schema(
       required: [true, "Can't be blank"],
       minlength: 6,
     },
-    profilePic: {
+    picture: {
       type: String,
     },
     newMessages: {
@@ -45,5 +62,22 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-const User = model("User", userSchema);
+userSchema.methods.toJSON = function () {
+  const userObject = this.toObject();
+  delete userObject.password;
+  return userObject;
+};
+
+userSchema.statics.findByCredentials = async function (
+  email: string,
+  password: string
+) {
+  const user = await User.findOne({ email });
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw new Error("Invalid email or password");
+  }
+  return user;
+};
+
+const User = model<IUserDocument, UserModel>("User", userSchema);
 export default User;

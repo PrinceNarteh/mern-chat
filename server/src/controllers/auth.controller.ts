@@ -34,13 +34,11 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = await loginSchema.validateAsync(req.body, {
       abortEarly: false,
     });
-    let user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ error: ["Invalid Credentials"] });
-    }
-    res.send(user);
+    let user = await User.findByCredentials(email, password);
+    console.log(user);
+    user.status = "online";
+    await user.save();
+    res.status(StatusCodes.OK).json(user);
   } catch (error: any) {
     let err: string[] = [];
     if (error?.name === "ValidationError") {

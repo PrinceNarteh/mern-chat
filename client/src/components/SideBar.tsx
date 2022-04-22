@@ -5,9 +5,11 @@ const SideBar = () => {
 
   return (
     <div>
-      <h1 className="text-xl my-5 w-7/12 mx-auto">Available Rooms</h1>
+      <h1 className="text-xl text-[#48A3D8] font-bold mt-5 w-7/12 mx-auto">
+        Available Rooms
+      </h1>
 
-      <div className="w-7/12 mx-auto text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded  dark:border-gray-600 dark:text-white">
+      <div className="w-7/12 mx-auto mt-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded  dark:border-gray-600 dark:text-white">
         {rooms.map((room, index) => (
           <a
             key={index}
