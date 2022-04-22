@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -9,7 +10,6 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      index: true,
       unique: true,
       lowercase: true,
       required: [true, "Email is required."],
@@ -34,8 +34,16 @@ const userSchema = new Schema(
   },
   {
     minimize: false,
+    timestamps: true,
   }
 );
+
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 12);
+  }
+  next();
+});
 
 const User = model("User", userSchema);
 export default User;
