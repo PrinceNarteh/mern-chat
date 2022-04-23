@@ -6,6 +6,7 @@ export const registerSchema = Joi.object({
   password: Joi.string().min(6).required(),
   newMessages: Joi.object(),
   status: Joi.string(),
+  picture: Joi.string(),
 });
 
 export const loginSchema = Joi.object({

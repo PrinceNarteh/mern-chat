@@ -1,16 +1,18 @@
-import React, { ChangeEvent, useState } from "react";
+import React, {ChangeEvent, useState} from "react";
 import RegisterBg from "../assets/signup.jpg";
 import useForm from "../hooks/useForm";
 import Avatar from "../assets/avatar.png";
-import { PlusCircleIcon } from "@heroicons/react/solid";
-import { uploadImage } from "../services/uploadImage";
-import { useSwal } from "../hooks/useSwal";
+import {PlusCircleIcon} from "@heroicons/react/solid";
+import {uploadImage} from "../services/uploadImage";
+import {useSwal} from "../hooks/useSwal";
+import {useRegisterUserMutation} from "../services/appApi";
 
 const Register = () => {
   const swal = useSwal();
-  const { values, onChangeHandler, onSubmitHandler } = useForm(
-    { email: "", password: "" },
-    loginUser
+  const [registerUser, {isLoading, isError}] = useRegisterUserMutation();
+  const {values, onChangeHandler, onSubmitHandler} = useForm(
+    {name: "", email: "", password: ""},
+    handleSubmit
   );
 
   // Image upload states
@@ -21,7 +23,7 @@ const Register = () => {
   function validateImg(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files;
     if (file && file[0].size >= 1048576) {
-      swal.fire({ icon: "error", title: "Max image size is 1mb" });
+      swal.fire({icon: "error", title: "Max image size is 1mb"});
       return;
     } else if (file) {
       setImage(file[0]);
@@ -29,13 +31,22 @@ const Register = () => {
     }
   }
 
-  async function loginUser() {
+  async function handleSubmit() {
     if (!image) {
-      return alert("Please upload your profile picture");
+      return swal.fire({
+        icon: "error",
+        title: "Please upload your profile picture",
+      });
     }
     const url = await uploadImage(image, setUploadingImg);
-    console.log(url);
+    const res = await registerUser({
+      ...values,
+      picture: url,
+    });
+    console.log(res);
   }
+
+  console.log(values);
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -50,8 +61,7 @@ const Register = () => {
             />
             <label
               htmlFor="image-upload"
-              className="absolute right-3 -bottom-2 cursor-pointer p-1"
-            >
+              className="absolute right-3 -bottom-2 cursor-pointer p-1">
               <PlusCircleIcon className="w-6 h-6" />
             </label>
             <input
@@ -65,8 +75,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="name"
-              className="block text-gray-500 text-lg font-semibold"
-            >
+              className="block text-gray-500 text-lg font-semibold">
               Name
             </label>
             <input
@@ -79,8 +88,7 @@ const Register = () => {
           <div className="mt-3">
             <label
               htmlFor="email"
-              className="block text-gray-500 text-lg font-semibold"
-            >
+              className="block text-gray-500 text-lg font-semibold">
               Email Address
             </label>
             <input
@@ -93,8 +101,7 @@ const Register = () => {
           <div className="mt-3">
             <label
               htmlFor="password"
-              className="block text-gray-500 text-lg font-semibold"
-            >
+              className="block text-gray-500 text-lg font-semibold">
               Password
             </label>
             <input
@@ -106,8 +113,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="block bg-[#48A3D8] text-white mt-5 px-5 py-1"
-          >
+            className="block bg-[#48A3D8] text-white mt-5 px-5 py-1">
             {uploadingImg ? "Signing you up..." : "Sign Up"}
           </button>
         </form>

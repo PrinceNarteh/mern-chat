@@ -1,13 +1,14 @@
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
-import { StatusCodes } from "http-status-codes";
+import {Request, Response} from "express";
+import {StatusCodes} from "http-status-codes";
 
 import User from "../models/user.model";
-import { loginSchema, registerSchema } from "../utils/validations";
+import {loginSchema, registerSchema} from "../utils/validations";
 
 export const register = async (req: Request, res: Response) => {
   try {
     // validate data
+    console.log(req.body);
     const data = await registerSchema.validateAsync(req.body, {
       abortEarly: false,
     });
@@ -31,7 +32,7 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = await loginSchema.validateAsync(req.body, {
+    const {email, password} = await loginSchema.validateAsync(req.body, {
       abortEarly: false,
     });
     let user = await User.findByCredentials(email, password);

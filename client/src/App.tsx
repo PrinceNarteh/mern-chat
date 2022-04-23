@@ -7,8 +7,8 @@ import { PersistGate } from "redux-persist/integration/react";
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <div className="min-h-screen overflow-hidden">
+      <PersistGate loading={null} persistor={persistor}>
+        <div className="min-h-screen">
           <Router />
         </div>
       </PersistGate>
