@@ -48,8 +48,6 @@ const Register = () => {
     navigate("/chat", {replace: true});
   }
 
-  console.log(values);
-
   return (
     <div className="flex flex-col md:flex-row">
       <div className="h-[calc(100vh_-_3.5rem)] flex flex-col flex-1 justify-center items-center max-w-full ">

@@ -1,17 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector, TypedUseSelectorHook} from "react-redux";
 import appApi from "../../services/appApi";
-import {AppDispatch} from "../store";
-
-interface IUser {
-  id: string;
-  username: string;
-  token: string;
-}
+import {AppDispatch, RootState} from "../store";
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {} as IUser,
+  initialState: null,
   reducers: {
     addNotifications: (state, payload) => {},
     resetNotifications: (state, payload) => {},
@@ -43,5 +37,7 @@ export const useResetNotifications = () => {
   const dispatch = useDispatch<AppDispatch>();
   return dispatch(userSlice.actions.resetNotifications);
 };
+
+export const selectUser = () => (state: RootState) => state.user;
 
 export default userSlice.reducer;
