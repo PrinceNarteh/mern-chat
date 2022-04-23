@@ -6,10 +6,12 @@ import {PlusCircleIcon} from "@heroicons/react/solid";
 import {uploadImage} from "../services/uploadImage";
 import {useSwal} from "../hooks/useSwal";
 import {useRegisterUserMutation} from "../services/appApi";
+import {useNavigate} from "react-router-dom";
 
 const Register = () => {
   const swal = useSwal();
-  const [registerUser, {isLoading, isError}] = useRegisterUserMutation();
+  const navigate = useNavigate();
+  const [registerUser] = useRegisterUserMutation();
   const {values, onChangeHandler, onSubmitHandler} = useForm(
     {name: "", email: "", password: ""},
     handleSubmit
@@ -43,7 +45,7 @@ const Register = () => {
       ...values,
       picture: url,
     });
-    console.log(res);
+    navigate("/chat", {replace: true});
   }
 
   console.log(values);

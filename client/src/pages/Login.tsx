@@ -1,15 +1,20 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 import LoginBg from "../assets/login.jpg";
 import useForm from "../hooks/useForm";
+import {useLoginUserMutation} from "../services/appApi";
 
 const Login = () => {
-  const { values, onChangeHandler, onSubmitHandler } = useForm(
-    { email: "", password: "" },
-    loginUser
+  const navigate = useNavigate();
+  const {values, onChangeHandler, onSubmitHandler} = useForm(
+    {email: "", password: ""},
+    loginHandler
   );
+  const [loginUser] = useLoginUserMutation();
 
-  function loginUser() {
-    console.log("User Logged In");
+  async function loginHandler() {
+    const res = await loginUser(values);
+    navigate("/chat", {replace: true});
   }
 
   return (
@@ -23,8 +28,7 @@ const Login = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-gray-500 text-lg font-semibold"
-            >
+              className="block text-gray-500 text-lg font-semibold">
               Email Address
             </label>
             <input
@@ -38,8 +42,7 @@ const Login = () => {
           <div className="mt-3">
             <label
               htmlFor="password"
-              className="block text-white text-lg font-semibold"
-            >
+              className="block text-white text-lg font-semibold">
               Password
             </label>
             <input
@@ -55,8 +58,7 @@ const Login = () => {
           </label>
           <button
             type="submit"
-            className="block bg-[#48A3D8] text-white mt-5 px-5 py-1"
-          >
+            className="block bg-[#48A3D8] text-white mt-5 px-5 py-1">
             Login
           </button>
         </form>
