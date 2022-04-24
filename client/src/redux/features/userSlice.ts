@@ -3,9 +3,22 @@ import {useDispatch, useSelector, TypedUseSelectorHook} from "react-redux";
 import appApi from "../../services/appApi";
 import {AppDispatch, RootState} from "../store";
 
+interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  picture: string;
+  status: string;
+  newMessages: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const initialState: IUser = {} as IUser;
+
 const userSlice = createSlice({
   name: "user",
-  initialState: null,
+  initialState,
   reducers: {
     addNotifications: (state, payload) => {},
     resetNotifications: (state, payload) => {},
