@@ -1,21 +1,20 @@
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import {ChatAlt2Icon} from "@heroicons/react/outline";
+import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/solid";
 import {useSelector} from "react-redux";
-import {selectUser} from "../redux/features/userSlice";
+import {initialStateType, selectUser} from "../redux/features/userSlice";
 import {useLogoutUserMutation} from "../services/appApi";
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const user = useSelector(selectUser());
+  const user: any = useSelector(selectUser());
   const [logoutUser] = useLogoutUserMutation();
 
   const logout = async (e: any) => {
     e.preventDefault();
     await logoutUser(user);
   };
-
-  console.log(dropdownOpen);
 
   return (
     <div className="shadow-md">
@@ -24,7 +23,7 @@ const Navbar = () => {
           <ChatAlt2Icon className="h-5 w-5 text-[#48A3D8]" />
           <span>MernChat</span>
         </h2>
-        <ul className="flex gap-5">
+        <ul className="flex gap-5 items-center">
           {user && (
             <>
               <li>
@@ -34,12 +33,18 @@ const Navbar = () => {
               <div className="relative">
                 <button
                   id="dropdownDefault"
-                  data-dropdown-toggle="dropdown"
-                  className="text-gray-500 space-x-2 border border-gray-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center"
+                  className="text-gray-500 space-x-2 border border-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center"
                   type="button"
                   onClick={() => setDropdownOpen(!dropdownOpen)}>
                   <img className="w-6 h-6" src={user.picture} alt="" />
                   <span>John Doe</span>
+                  <span>
+                    {dropdownOpen ? (
+                      <ChevronUpIcon className="w-5 h-5" />
+                    ) : (
+                      <ChevronDownIcon className="w-5 h-5" />
+                    )}
+                  </span>
                 </button>
 
                 <div
@@ -87,10 +92,13 @@ const Navbar = () => {
           {!user && (
             <>
               <li>
-                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/register">Register</NavLink>
+                <NavLink to="login">Login</NavLink>
+              </li>
+              <li>
+                <NavLink to="register">Register</NavLink>
               </li>
             </>
           )}

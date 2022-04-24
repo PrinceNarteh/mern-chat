@@ -45,7 +45,7 @@ const Register = () => {
       ...values,
       picture: url,
     });
-    navigate("/chat", {replace: true});
+    navigate("chat", {replace: true});
   }
 
   return (

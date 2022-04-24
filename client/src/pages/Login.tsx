@@ -14,7 +14,7 @@ const Login = () => {
 
   async function loginHandler() {
     const res = await loginUser(values);
-    navigate("/chat", {replace: true});
+    navigate("chat", {replace: true});
   }
 
   return (

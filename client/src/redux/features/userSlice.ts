@@ -14,7 +14,9 @@ interface IUser {
   updatedAt: string;
 }
 
-const initialState: IUser = {} as IUser;
+export type initialStateType = null | IUser;
+
+const initialState: initialStateType = null;
 
 const userSlice = createSlice({
   name: "user",

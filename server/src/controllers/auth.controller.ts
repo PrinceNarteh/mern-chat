@@ -8,7 +8,6 @@ import {loginSchema, registerSchema} from "../utils/validations";
 export const register = async (req: Request, res: Response) => {
   try {
     // validate data
-    console.log(req.body);
     const data = await registerSchema.validateAsync(req.body, {
       abortEarly: false,
     });
@@ -36,7 +35,6 @@ export const login = async (req: Request, res: Response) => {
       abortEarly: false,
     });
     let user = await User.findByCredentials(email, password);
-    console.log(user);
     user.status = "online";
     await user.save();
     res.status(StatusCodes.OK).json(user);
