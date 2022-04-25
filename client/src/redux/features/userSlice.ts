@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {useDispatch, useSelector, TypedUseSelectorHook} from "react-redux";
+import {useDispatch} from "react-redux";
 import appApi from "../../services/appApi";
 import {AppDispatch, RootState} from "../store";
 
