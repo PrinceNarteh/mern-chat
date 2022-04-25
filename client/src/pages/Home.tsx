@@ -1,7 +1,7 @@
 import React from "react";
-import { ChatIcon } from "@heroicons/react/solid";
+import {ChatIcon} from "@heroicons/react/solid";
 import HomeBg from "../assets/home-bg.jpg";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
       <div className="h-[calc(100vh_-_3.5rem)] flex flex-col w-1/2 justify-center items-start pl-14">
         <h1 className="text-4xl font-semibold">Share the world with friends</h1>
         <p className="py-3 text-lg">Chat App lets you connect with the world</p>
-        <Link to="/login" className="bg-teal-500 flex gap-1 py-2 px-4 rounded">
+        <Link to="login" className="bg-teal-500 flex gap-1 py-2 px-4 rounded">
           <span>Get Started</span> <ChatIcon className="w-5 h-5 text-white" />
         </Link>
       </div>

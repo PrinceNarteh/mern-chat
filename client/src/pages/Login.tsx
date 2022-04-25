@@ -1,11 +1,13 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import LoginBg from "../assets/login.jpg";
+import {useAppContext} from "../context/appContext";
 import useForm from "../hooks/useForm";
 import {useLoginUserMutation} from "../services/appApi";
 
 const Login = () => {
   const navigate = useNavigate();
+  const {ws} = useAppContext();
   const {values, onChangeHandler, onSubmitHandler} = useForm(
     {email: "", password: ""},
     loginHandler
@@ -13,8 +15,13 @@ const Login = () => {
   const [loginUser] = useLoginUserMutation();
 
   async function loginHandler() {
-    const res = await loginUser(values);
-    navigate("chat", {replace: true});
+    loginUser(values).then((res: any) => {
+      if (res.data) {
+        ws.emit("new-user");
+        ws.emit("connection-success");
+        navigate("/chat", {replace: true});
+      }
+    });
   }
 
   return (

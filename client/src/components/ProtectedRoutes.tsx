@@ -6,7 +6,7 @@ import {selectUser} from "../redux/features/userSlice";
 const ProtectedRoutes = () => {
   const user = useSelector(selectUser());
   const location = useLocation();
-  console.log(location);
+
   return (
     <>
       {user ? (

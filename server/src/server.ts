@@ -1,10 +1,11 @@
-import { config } from "dotenv";
-import { createServer } from "http";
+import "reflect-metadata";
+import {config} from "dotenv";
+import {createServer} from "http";
 
 import appServer from "./app";
-import { socketServer } from "./sockets/socket";
-import { dbConnection } from "./utils/dbConnection";
-import { logger } from "./utils/logger";
+import {socketServer} from "./sockets/socket";
+import {dbConnection} from "./utils/dbConnection";
+import {logger} from "./utils/logger";
 
 // getting environment variable
 config();

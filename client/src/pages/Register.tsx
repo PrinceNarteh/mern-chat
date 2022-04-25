@@ -67,7 +67,7 @@ const Register = () => {
             <input
               type="file"
               id="image-upload"
-              accept="image/png, image/jpe g"
+              accept="image/png, image/jpeg"
               onChange={validateImg}
               hidden
             />

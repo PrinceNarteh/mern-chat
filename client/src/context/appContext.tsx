@@ -33,6 +33,8 @@ const initialState: IState = {
 
 export const AppContext = createContext<IState>(initialState);
 
+export const useAppContext = () => useContext(AppContext);
+
 export const AppContextProvider = ({children}: {children: React.ReactNode}) => {
   const values = useContext(AppContext);
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
