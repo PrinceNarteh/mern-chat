@@ -7,11 +7,9 @@ import {
   SocketController,
   SocketIO,
 } from "socket-controllers";
-import {Socket} from "socket.io";
+import {Server, Socket} from "socket.io";
 import Message from "../../models/message.model";
 import User from "../../models/user.model";
-
-import {logger} from "../../utils/logger";
 
 const rooms = ["General", "Tech", "Finance", "Crypto"];
 async function getLastMessagesFromRoom(room: string) {
@@ -36,15 +34,16 @@ function sortRoomMessagesByDate(messages: any) {
 @SocketController()
 export class MessageController {
   @OnConnect()
-  @EmitOnSuccess("connection-success")
+  @EmitOnSuccess("connection_success")
   connection() {
+    console.log("User connected");
     return rooms;
   }
 
   @OnMessage("new-user")
-  async newUser(@SocketIO() io: any) {
+  async newUser(@SocketIO() io: Server) {
     const members = await User.find({});
-    io.emit(members);
+    io.emit("new-user", members);
   }
 
   @OnMessage("join-room")

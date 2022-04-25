@@ -4,12 +4,11 @@ import SideBar from "../components/SideBar";
 import {useAppContext} from "../context/appContext";
 
 const Chat = () => {
-  const {ws, setRooms, rooms} = useAppContext();
+  const {ws, setRooms} = useAppContext();
 
   useEffect(() => {
-    ws.on("connection-success", (rooms) => {
-      console.log(rooms);
-      setRooms(rooms);
+    ws.on("connection_success", (serverRooms: string[]) => {
+      setRooms(serverRooms);
     });
   });
 

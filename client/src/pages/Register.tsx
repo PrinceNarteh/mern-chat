@@ -41,7 +41,7 @@ const Register = () => {
       });
     }
     const url = await uploadImage(image, setUploadingImg);
-    const res = await registerUser({
+    await registerUser({
       ...values,
       picture: url,
     });

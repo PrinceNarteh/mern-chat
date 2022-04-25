@@ -18,7 +18,7 @@ const Login = () => {
     loginUser(values).then((res: any) => {
       if (res.data) {
         ws.emit("new-user");
-        ws.emit("connection-success");
+        ws.emit("connection_success");
         navigate("/chat", {replace: true});
       }
     });

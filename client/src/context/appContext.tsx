@@ -1,10 +1,10 @@
 import React, {createContext, useContext} from "react";
 import {io, Socket} from "socket.io-client";
 
-const ws = io(process.env.SOCKET_URL!);
+const ws = io(process.env.REACT_APP_SOCKET_URL!);
 
 interface IState {
-  rooms: [];
+  rooms: string[];
   setRooms: Function;
   currentRoom: [];
   setCurrentRoom: Function;
@@ -37,5 +37,13 @@ export const useAppContext = () => useContext(AppContext);
 
 export const AppContextProvider = ({children}: {children: React.ReactNode}) => {
   const values = useContext(AppContext);
-  return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
+  const setRooms = (rooms: string[]) => {
+    console.log(rooms);
+    values.rooms = rooms;
+  };
+  return (
+    <AppContext.Provider value={{...values, setRooms}}>
+      {children}
+    </AppContext.Provider>
+  );
 };
